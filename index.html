@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Using Deep Learning for Automatic Segmentation of Polyp Image Sequences</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="icon" href="images/favicon.png" type="image/gif" sizes="any">
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="landing is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<h1><a href="#banner" class="scrolly">Using Deep Learning for Automatic Segmentation of Polyp Image Sequences</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a class="scrolly" href="#introduction">Introduction</a></li>
+											<li><a class="scrolly"  href="#goals">Goals</a></li>
+											<li><a class="scrolly"  href="#methodology">Methodology</a></li>
+											<li><a class="scrolly"  href="#results">Results</a></li>
+											<li><a class="scrolly"  href="#achievements">Achievements</a></li>
+											<li><a class="scrolly"  href="#about">About</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Banner -->
+					<section id="banner">
+						<div class="inner">
+							<h2>Using Deep Learning for Automatic<br />
+								Segmentation of Polyp Image Sequences</h2>
+						</div>
+						<a href="#introduction" class="more scrolly">Learn More</a>
+					</section>
+
+				<!-- introduction -->
+					<section id="introduction" class="wrapper style2 special" style="padding: 0.9em; background-color: #29648A;">
+						<div class="inner">
+							<h2>Introduction</h2>
+							<p>
+								<ul style="text-align: left;">
+									<li><span style="font-weight: bold;">PILLCAM® COLON</span> is a camera within a capsule that captures images as it travels through the digestive system.</li><br />
+									<li>Physicians can use these images to detect and diagnose gastrointestinal diseases and identify polyps.</li><br />
+									<li><span style="font-weight: bold;">Medtronic</span> is looking for an automated solution for increasing the volume of annotated images by using segmentation networks.</li>
+								</ul>
+							</p>
+							<div class="image fit" style="width: 30em; margin-left: auto; margin-right: auto;"><img src="images/pillcam-1.png" alt="PILLCAM® COLON" title="PILLCAM® COLON" /></div>
+							<div class="arrow_div"><a href="#goals" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+						</div>
+					</section>
+
+				<!-- main -->
+					<section class="wrapper alt style2">
+						<section class="spotlight" id="goals" style="background-color: #464866;">
+							<div class="image" style="width: 50em;"><img src="images/pillcam-2.jpg" alt="PILLCAM® COLON" title="PILLCAM® COLON" /></div><div class="content">
+								<h2 style="text-align: center;">Goals</h2>
+								<p>
+									<ul>
+										<li>Train segmentation networks using a small fraction of non-consecutive images taken by <span style="font-weight: bold;">PILLCAM® COLON</span> (3 pairs of image, mask).</li><br />
+										<li>Use the trained model to segment the entire sequence.</li><br />
+										<li><span style="font-weight: bold;">Hypothesis: </span>By training a separate network for each sequence - the overfitting to the sequence should provide very accurate results.</li>
+									</ul>
+								</p>
+								<div class="arrow_div"><a href="#methodology" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+						<section class="spotlight" id="methodology" style="background-color: #25274D;">
+							<div class="image"><img src="images/workflow.png" alt="Workflow" title="Workflow" style="height: auto; width:50%; margin-left: auto; margin-right: auto" /></div><div class="content">
+								<h2 style="text-align: center;">Methodology</h2><br />
+								<p>
+									We split the sequences in our initial dataset to train (70%) and test (30%).<br />
+									The following steps are applied to each sequence:
+									<ol>
+										<li><a href="#methodology_1" class="scrolly">Data Processing</li></a><br />
+										<li><a href="#methodology_2" class="scrolly">Training Segmentation Networks</li></a><br />
+										<li><a href="#methodology_3" class="scrolly">Inference and Post-Processing</li></a><br />
+										<li><a href="#methodology_4" class="scrolly">Evaluation</li></a><br />
+									</ol>
+								</p>
+								<div class="arrow_div"><a href="#methodology_1" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+						<section class="spotlight" id="methodology_1" style="background-color: #29648A;">
+							<div class="image" style="width: 50em;">
+								<img src="images/data_split.png" alt="Training Dataset Split Example" title="Training Dataset Split Example" /><br />
+								<img src="images/data_augmentations.png" alt="Training Dataset Augmentations" title="Training Dataset Augmentations" />
+							</div>
+							<div class="content">
+								<h2 style="text-align: center;">Data Processing</h2>
+								<p>
+									<ul>
+										<li><span style="font-weight: bold;">Dataset split: </span>For each sequence, 3 images with optimal variance are selected for the training dataset. The rest of the images are used for inference and validation (optional).</li><br />
+										<li><span style="font-weight: bold;">Pre-processing: </span>Augmentations are applied in order to increase the size of the training dataset : 90° rotations, horizontal flip, and vertical flip.</li><br />
+									</ul>
+								</p>
+								<div class="arrow_div"><a href="#methodology_2" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+						<section class="spotlight" id="methodology_2" style="background-color: #464866;">
+							<div class="image" style="width: 50em;"><img src="images/deeplabv3.png" alt="DeeplabV3+ Layers" title="DeeplabV3+ Layers"/></div><div class="content">
+								<h2 style="text-align: center;">Training Segmentation Networks</h2>
+								<p>
+									<ul>
+										<li>We evaluated 3 different types of segmentation networks: <a href="https://arxiv.org/abs/1505.04597">Unet</a>, <a href="https://arxiv.org/abs/1612.01105">PSPnet</a>, <a href="https://arxiv.org/abs/1802.02611">DeepLabv3+</a>.</li><br />
+										<li>The augmented training dataset is now used to train a segmentation network.</li><br />
+										<li>The resulting model should have a high level of overfit to the training dataset.</li><br />
+									</ul>
+								</p>
+								<div class="arrow_div"><a href="#methodology_3" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+						<section class="spotlight" id="methodology_3" style="background-color: #123C69;">
+							<div class="image" style="width: 50em;"><img src="images/postprocessing.png" alt="Post-Processing Example"  title="Post-Processing Example" /></div><div class="content">
+								<h2 style="text-align: center;">Inference And Post-Processing</h2>
+								<p>
+									<ul>
+										<li>The trained model is saved, and used to generate masks for the entire sequence (<span style="font-weight: bold;">including</span> the images used for training).</li><br />
+										<li><span style="font-weight: bold;">Post-Processing algorithms</span> are applied to improve the quality of the resulting masks.</li><br />
+									</ul>
+								</p>
+								<div class="arrow_div"><a href="#methodology_4" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+						<section class="spotlight" id="methodology_4" style="background-color: #25274D;">
+							<div class="image" style="width: 45em;"><img src="images/result_sample.png" alt="Sample Result" title="Sample Result" style="height: auto; width:80%; margin-right: 0; margin-left: auto" /></div><div class="content">
+								<h2 style="text-align: center;">Evaluation</h2>
+								<p>
+									<ul>
+										<li><span style="font-weight: bold;">Metrics: </span>2 performance metrics are calculated for each mask:
+											<ul>
+												<li>IoU accuracy (Intersection over Union, AKA Jaccard index)</li>
+												<li>F<sub>1</sub> Score (Harmonic mean of precision and recall)</li>
+											</ul>
+										<li><span style="font-weight: bold;">Overfit: </span>If the training process was successful, we expect to see very high accuracy scores for the training dataset.</li><br />
+										<li><span style="font-weight: bold;">Inference: </span>Our hypothesis assumes that the rest of the sequence will also have high levels of accuracy.</li>
+									</ul>
+								</p>
+								<div class="arrow_div"><a href="#results" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+					</section>
+
+				<!-- results -->
+				<section id="results" class="wrapper style2 special" style="padding: 0.2em; background-color: #AC3B61;">
+					<br />
+					<div class="inner">
+						<h2>Results</h2>
+					</div>
+				</section>
+
+				<section class="wrapper alt style2">
+					<section class="spotlight" id="results_1" style="background-color: #29648A;">
+						<div class="image" style="width: 50em;"><img src="images/unet_analysis_histogram.png" alt="Unet Train Histogram" title="Unet Train Histogram"/></div><div class="content">
+							<h2 style="text-align: center;">Train Dataset (70%)</h2>
+							<p>
+								<ul>
+									<li>Model parameters were fine-tuned using the Train dataset.</li><br />
+									<li>The average level of accuracy for these sequences was very high.<br /></li><br />
+									<li>All 3 segmentation networks evaluated performed well, and produced similar results.</li>
+								</ul>
+							</p>
+							<div class="arrow_div"><a href="#results_2" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+						</div>
+					</section>
+					<section class="spotlight" id="results_2" style="background-color: #374785;">
+						<div class="image" style="width: 50em;"><img src="images/deeplabv3_analysis_histogram.png" alt="DeepLabv3+ Test Histogram" title="DeepLabv3+ Test Histogram" /></div><div class="content">
+							<h2 style="text-align: center;">Test dataset (30%)</h2>
+							<p>
+								<ul>
+									<li>After the model parameters were tuned and finalized, we tested our methodology on the remaining sequences (Test dataset). </li><br />
+									<li>Similarly to  the Train dataset, average accuracy levels for these sequences were also very high, and all 3 networks performed well.</li><br />
+								</ul>
+							</p>
+							<div class="arrow_div"><a href="#achievements" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+						</div>
+					</section>
+				</section>
+
+				<!-- achievements -->
+					<section id="achievements" class="wrapper style2 special" style="padding: 0.2em; background-color: #AC3B61;">
+						<br />
+						<div class="inner">
+							<h2>Achievements</h2>
+						</div>
+					</section>
+
+					<section class="wrapper alt style2">
+						<section class="spotlight" id="achievements_1" style="background-color: #464866;">
+							<div class="image" style="width: 50em;"><img src="images/bounding_boxes.png" alt="Bounding Boxes Examples" title="Bouning Boxes Examples"/></div><div class="content">
+								<h2 style="text-align: center;">Proof of Concept</h2>
+								<div>
+									<ul style="margin-bottom: 0;">
+										<li>We met our project's main goal - providing a proof of concept tool for automatic segmentation of polyp image sequences.</li><br />
+										<li>The results support our hypothesis - By training a separate network for each sequence, the overfitting to the sequence provided very accurate results. </li><br />
+									</ul>
+									<table>
+										<tbody>
+											<tr>
+												<td>Sequences with F<sub>1</sub> average &gt; 90%</td>
+												<td>46%</td>
+											</tr>
+											<tr>
+												<td>Sequences with F<sub>1</sub> average &gt; 80%</td>
+												<td>34%</td>
+											</tr>
+											<tr>
+												<td colspan="1">Sequences with F<sub>1</sub> average &lt; 50%</td>
+												<td>3%</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="arrow_div"><a href="#achievements_2" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+						<section class="spotlight" id="achievements_2" style="background-color: #29648A;">
+							<div class="image" style="width: 50em;"><img src="images/big_data.jpg" alt="Segmentation Network" title="Segmentation Network" /></div><div class="content">
+								<h2 style="text-align: center;">Sequence Segmentation Framework</h2>
+								<p>
+									<ul>
+										<li>We designed and implemented a framework of tools that automate the process of segmentation across a large volume of sequences.</li><br />
+										<li>This framework was designed to allow for quick and easy changes in the network type and hyperparameters using a user-friendly configuration file, API functions, and command-line interface.</li><br />
+										<li>We hope these tools will help support any future research based on our project.</li><br />
+									</ul>
+								</p>
+								<div class="arrow_div"><a href="#achievements_3" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+						<section class="spotlight" id="achievements_3"  style="background-color: #44318D;">
+							<div class="image" style="width: 50em;"><img src="images/deep_brain.jpg" alt="Deep Learning Experience" title="Deep Learning Experience"  /></div><div class="content">
+								<h2 style="text-align: center;">Deep Learning Experience</h2>
+								<p>
+									<ul>
+										<li>We gained valuable hands-on experience in the field of deep learning.</li><br />
+										<li>This experience included learning about and working with multiple different segmentation networks, optimizers, performance metrics, and image processing libraries.</li><br />
+										<li>We are very thankful for participating in this industrial project, and having an opportunity to research a highly unique problem that is rarely encountered in a purely academic setting.</li>
+									</ul>
+								</p>
+								<div class="arrow_div"><a href="#about" class="scrolly arrow_a"><img src="assets/css/images/arrow.svg"></a></div>
+							</div>
+						</section>
+					</section>
+
+				<!-- about -->
+					<section id="about" class="wrapper style2" style="padding: 2em; background-color: #25274D;">
+						<div class="inner">
+							<header>
+								<h2 style="text-align: center">About Us</h2>
+							</header>
+							<div style="text-align: center;">
+								<span class="image fit" style="width: 25%; display: inline-block; margin-right: 2%">
+									<a href="https://www.linkedin.com/in/daniel-keren-945312a5/" target="_blank">
+										<img src="images/profile_daniel.jpg" alt="Daniel Keren" title="Daniel Keren" />
+										<div style="position: absolute; bottom: 0; padding: 10px; background: rgba(0,0,0,0.5); width: 100%;">
+											<h5 style=" margin-bottom: 0;">Daniel Keren</h5>
+											<span style="font-size: 70%; color: white">Student - Technion, Faculty of CS</span>
+										</div>
+									</a>
+								</span>
+								<span class="image fit" style="width: 25%; display: inline-block; margin-left: 2%">
+									<a href="https://www.linkedin.com/in/michal-lansky-372685200/" target="_blank">
+										<img src="images/profile_michal.jpg" alt="Michal Lansky" title="Michal Lansky" />
+										<div style="position: absolute; bottom: 0; padding: 10px; background: rgba(0,0,0,0.5); width: 100%;">
+											<h5 style=" margin-bottom: 0;">Michal Lansky</h5>
+											<span style="font-size: 70%; color: white">Student - Technion, Faculty of EE</span>
+										</div>
+									</a>
+								</span>
+								<div style="color: white">
+									Dorit Baras - Project Supervisor, Medtronic
+								</div><br />
+								<img src="images/logo.png" alt="Industrial Project Logo" title="Industrial Project Logo" style="width: 55%; margin-left: auto; margin-right: auto;"/>
+							</div>
+						</div>
+					</section>
+
+				<!-- footer -->
+					<footer id="footer" style="padding: 1em">
+						<ul class="copyright">
+							<li>© Medtronic</li>
+							<li>© Technion - Israel Institute of Technology</li>
+							<li>© Daniel Keren &#38; Michal Lansky</li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
